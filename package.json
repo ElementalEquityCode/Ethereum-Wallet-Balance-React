@@ -1,0 +1,15 @@
+{
+  "name": "ethereum-wallet-balance",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "build": "cd Client && npm run build",
+    "install-client": "cd Client && npm install",
+    "heroku-postbuild": "npm run install-client && npm run build",
+    "start": "cd Server && npm install && node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
