@@ -30,7 +30,7 @@ const EthereumBalanceChecker = () => {
         setShouldDisplayModalHandler({
           shouldDisplay: true,
           title: 'Error',
-          message: `Address ${addressString.toLowerCase()} does not have any assets.`
+          message: `Ethereum address ${addressString.toLowerCase()} does not have any assets.`
         });
       } else {
         const { assets } = response.data[addressString.toLowerCase()].products[0];
@@ -46,7 +46,6 @@ const EthereumBalanceChecker = () => {
 
         assets.forEach((coin) => {
           coinsList.push(new Coin(coin.label, coin.price, coin.balance, coin.balanceUSD, `https://zapper.fi/images/${coin.img}`, (coin.balanceUSD / walletValueMeta) * 100, null));
-          console.log(coin.symbol);
         });
 
         setShouldDisplayModalHandler(false);
@@ -58,6 +57,11 @@ const EthereumBalanceChecker = () => {
       }
     }).catch((error) => {
       console.log(error);
+      setShouldDisplayModalHandler({
+        shouldDisplay: true,
+        title: 'Error',
+        message: `Ethereum address ${addressString.toLowerCase()} was not found.`
+      });
     });
   };
 
@@ -123,10 +127,14 @@ const EthereumBalanceChecker = () => {
                   }
                 }}
                 onPasteHandler={(event) => {
-                  setEnteredStringHandler(event.clipboardData.getData('Text'));
+                  const string = event.clipboardData.getData('Text');
+                  const regex = /^0x[a-fA-F0-9]{40}$/;
+                  if (regex.test(string.trim())) {
+                    performAPIRequest(string.trim());
+                    setEnteredStringHandler(string);
+                  }
                 }}
                 onButtonClickedHandler={() => {
-                  console.log('Button clicked');
                   const regex = /^0x[a-fA-F0-9]{40}$/;
                   if (regex.test(enteredString.trim())) {
                     performAPIRequest(enteredString.trim());
@@ -137,6 +145,9 @@ const EthereumBalanceChecker = () => {
                       message: 'Ethereum address not formatted correctly.'
                     });
                   }
+                }}
+                onKeyUpHandler={(event) => {
+                  setEnteredStringHandler(event.target.value.trim());
                 }}
               />
             </Grid>

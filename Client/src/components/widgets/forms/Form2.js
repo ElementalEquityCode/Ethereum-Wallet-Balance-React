@@ -7,6 +7,7 @@ const Form2 = (props) => {
   const { onCompleteHandler } = props;
   const { onButtonClickedHandler } = props;
   const { onPasteHandler } = props;
+  const { onKeyUpHandler } = props;
 
   return (
     <Box
@@ -44,6 +45,9 @@ const Form2 = (props) => {
             onPaste={(event) => {
               onPasteHandler(event);
             }}
+            onKeyUp={(event) => {
+              onKeyUpHandler(event);
+            }}
           />
           <Button
             variant="contained"
@@ -62,7 +66,8 @@ const Form2 = (props) => {
 Form2.propTypes = {
   onCompleteHandler: PropTypes.func,
   onButtonClickedHandler: PropTypes.func,
-  onPasteHandler: PropTypes.func
+  onPasteHandler: PropTypes.func,
+  onKeyUpHandler: PropTypes.func,
 };
 
 export default Form2;
