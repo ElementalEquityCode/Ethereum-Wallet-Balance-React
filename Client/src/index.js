@@ -14,6 +14,7 @@ import App from './App';
 import { AuthProvider } from './contexts/JWTContext';
 import { SettingsProvider } from './contexts/SettingsContext';
 import store from './store';
+import { CookiesProvider } from 'react-cookie';
 
 ReactDOM.render(
   <StrictMode>
@@ -24,7 +25,9 @@ ReactDOM.render(
             <SettingsProvider>
               <BrowserRouter>
                 <AuthProvider>
-                  <App />
+                  <CookiesProvider>
+                    <App />
+                  </CookiesProvider>
                 </AuthProvider>
               </BrowserRouter>
             </SettingsProvider>

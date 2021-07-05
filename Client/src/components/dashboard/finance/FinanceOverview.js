@@ -60,7 +60,7 @@ const ChartLine = () => {
   );
 };
 
-const FinanceOverview = (props) => {
+const AddressOverview = (props) => {
   const { etherbalance } = props;
   const { totalerc20tokens } = props;
   const { walletvalue } = props;
@@ -196,10 +196,10 @@ const FinanceOverview = (props) => {
   );
 };
 
-FinanceOverview.propTypes = {
+AddressOverview.propTypes = {
   etherbalance: PropTypes.number,
   totalerc20tokens: PropTypes.number,
   walletvalue: PropTypes.number
 };
 
-export default FinanceOverview;
+export default AddressOverview;

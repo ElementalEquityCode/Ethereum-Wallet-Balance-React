@@ -1,17 +1,17 @@
 import { Helmet } from 'react-helmet-async';
 import { Box, Container, Grid, Typography } from '@material-ui/core';
-import {
-  FinanceOverview,
-  FinanceProfitableProducts
-} from '../../components/dashboard/finance';
+import AddressOverview from '../../components/dashboard/finance/FinanceOverview';
+import TokensTable from '../../components/dashboard/finance/FinanceProfitableProducts';
 import Form from '../../components/widgets/forms/Form2';
 import useSettings from '../../hooks/useSettings';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { zapperAPI } from '../../Objects/Axios';
 import Modal9 from '../../components/widgets/modals/Modal9';
 import Coin from '../../Objects/Coin';
+import { useCookies } from 'react-cookie';
 
 const EthereumBalanceChecker = () => {
+  const [cookie, setCookieHandler] = useCookies(['address']);
   const [enteredAddress, setAddressHandler] = useState('');
   const [enteredString, setEnteredStringHandler] = useState('');
   const [etherBalance, setEtherBalanceHandler] = useState(0);
@@ -54,6 +54,9 @@ const EthereumBalanceChecker = () => {
         setTotalETH20TokensHandler(response.data[addressString.toLowerCase()].products[0].assets.length);
         setWalletValueHandler(walletValueMeta);
         setCoinsHandler(coinsList);
+        setCookieHandler('address', addressString.toLowerCase(), {
+          path: '/'
+        });
       }
     }).catch((error) => {
       console.log(error);
@@ -64,6 +67,12 @@ const EthereumBalanceChecker = () => {
       });
     });
   };
+
+  useEffect(() => {
+    if (cookie.address) {
+      performAPIRequest(cookie.address);
+    }
+  }, []);
 
   const { settings } = useSettings();
 
@@ -149,6 +158,7 @@ const EthereumBalanceChecker = () => {
                 onKeyUpHandler={(event) => {
                   setEnteredStringHandler(event.target.value.trim());
                 }}
+                cookieAddress={cookie.address}
               />
             </Grid>
           </Grid>
@@ -161,7 +171,7 @@ const EthereumBalanceChecker = () => {
                 item
                 xs={12}
               >
-                <FinanceOverview
+                <AddressOverview
                   etherbalance={etherBalance}
                   totalerc20tokens={totalERC20Tokens}
                   walletvalue={walletValue}
@@ -171,7 +181,7 @@ const EthereumBalanceChecker = () => {
                 item
                 xs={12}
               >
-                <FinanceProfitableProducts
+                <TokensTable
                   address={enteredAddress}
                   coins={coins}
                 />
