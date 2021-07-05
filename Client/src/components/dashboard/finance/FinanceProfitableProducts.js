@@ -16,7 +16,7 @@ import Change24Hours from './Change24Hours/Change24Hours';
 import CoinLogo from './CoinLogo/CoinLogo';
 import { v4 as uuidv4 } from 'uuid';
 
-class TokensTable extends React.Component {
+class TokensTable extends React.PureComponent {
   getAddressString = (address) => (address !== '' ? `ERC-20 Token(s) for ${address}` : 'ERC-20 Token(s)');
 
   render() {

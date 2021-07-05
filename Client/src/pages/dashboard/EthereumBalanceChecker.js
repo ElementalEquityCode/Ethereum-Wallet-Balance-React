@@ -68,13 +68,14 @@ const EthereumBalanceChecker = () => {
     });
   };
 
+  const { settings } = useSettings();
+
   useEffect(() => {
     if (cookie.address) {
       performAPIRequest(cookie.address);
+      setEnteredStringHandler(cookie.address);
     }
   }, []);
-
-  const { settings } = useSettings();
 
   return (
     <>
@@ -121,7 +122,6 @@ const EthereumBalanceChecker = () => {
             >
               <Form
                 onCompleteHandler={(event) => {
-                  setEnteredStringHandler(event.target.value);
                   if (event.code.toLowerCase() === 'enter' || event.key.toLowerCase() === 'enter') {
                     const regex = /^0x[a-fA-F0-9]{40}$/;
                     if (regex.test(event.target.value.trim())) {
@@ -132,6 +132,7 @@ const EthereumBalanceChecker = () => {
                         title: 'Error',
                         message: 'Ethereum address not formatted correctly.'
                       });
+                      setEnteredStringHandler(event.target.value);
                     }
                   }
                 }}
