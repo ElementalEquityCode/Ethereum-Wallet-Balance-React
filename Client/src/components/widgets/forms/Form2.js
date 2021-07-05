@@ -1,9 +1,12 @@
-import { Box, Divider, Input } from '@material-ui/core';
+import { Box, Divider, Input, Button } from '@material-ui/core';
 import SearchIcon from '../../../icons/Search';
 import PropTypes from 'prop-types';
+import styles from './Form2.module.css';
 
 const Form2 = (props) => {
   const { onCompleteHandler } = props;
+  const { onButtonClickedHandler } = props;
+  const { onPasteHandler } = props;
 
   return (
     <Box
@@ -25,7 +28,10 @@ const Form2 = (props) => {
         <Box
           sx={{
             flexGrow: 1,
-            ml: 3
+            ml: 3,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
           }}
         >
           <Input
@@ -35,7 +41,17 @@ const Form2 = (props) => {
             onKeyDown={(event) => {
               onCompleteHandler(event);
             }}
+            onPaste={(event) => {
+              onPasteHandler(event);
+            }}
           />
+          <Button
+            variant="contained"
+            className={styles.button}
+            onClick={onButtonClickedHandler}
+          >
+            Search
+          </Button>
         </Box>
       </Box>
       <Divider />
@@ -44,7 +60,9 @@ const Form2 = (props) => {
 };
 
 Form2.propTypes = {
-  onCompleteHandler: PropTypes.func
+  onCompleteHandler: PropTypes.func,
+  onButtonClickedHandler: PropTypes.func,
+  onPasteHandler: PropTypes.func
 };
 
 export default Form2;

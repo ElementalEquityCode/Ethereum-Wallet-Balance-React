@@ -13,6 +13,7 @@ import Coin from '../../Objects/Coin';
 
 const EthereumBalanceChecker = () => {
   const [enteredAddress, setAddressHandler] = useState('');
+  const [enteredString, setEnteredStringHandler] = useState('');
   const [etherBalance, setEtherBalanceHandler] = useState(0);
   const [totalERC20Tokens, setTotalETH20TokensHandler] = useState(0);
   const [walletValue, setWalletValueHandler] = useState(0);
@@ -107,6 +108,7 @@ const EthereumBalanceChecker = () => {
             >
               <Form
                 onCompleteHandler={(event) => {
+                  setEnteredStringHandler(event.target.value);
                   if (event.code.toLowerCase() === 'enter' || event.key.toLowerCase() === 'enter') {
                     const regex = /^0x[a-fA-F0-9]{40}$/;
                     if (regex.test(event.target.value.trim())) {
@@ -118,6 +120,22 @@ const EthereumBalanceChecker = () => {
                         message: 'Ethereum address not formatted correctly.'
                       });
                     }
+                  }
+                }}
+                onPasteHandler={(event) => {
+                  setEnteredStringHandler(event.clipboardData.getData('Text'));
+                }}
+                onButtonClickedHandler={() => {
+                  console.log('Button clicked');
+                  const regex = /^0x[a-fA-F0-9]{40}$/;
+                  if (regex.test(enteredString.trim())) {
+                    performAPIRequest(enteredString.trim());
+                  } else {
+                    setShouldDisplayModalHandler({
+                      shouldDisplay: true,
+                      title: 'Error',
+                      message: 'Ethereum address not formatted correctly.'
+                    });
                   }
                 }}
               />
