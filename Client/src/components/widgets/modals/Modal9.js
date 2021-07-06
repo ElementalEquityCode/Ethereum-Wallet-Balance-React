@@ -53,7 +53,7 @@ const Modal9 = (props) => {
           <Typography
             align="center"
             color="textSecondary"
-            sx={{ mt: 1 }}
+            sx={{ mt: 1, wordBreak: 'break-word' }}
             variant="body2"
           >
             {message}
