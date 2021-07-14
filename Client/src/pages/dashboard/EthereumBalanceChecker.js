@@ -55,7 +55,8 @@ const EthereumBalanceChecker = () => {
         setWalletValueHandler(walletValueMeta);
         setCoinsHandler(coinsList);
         setCookieHandler('address', addressString.toLowerCase(), {
-          path: '/'
+          path: '/',
+          maxAge: 31556926
         });
       }
     }).catch((error) => {
