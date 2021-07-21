@@ -112,9 +112,18 @@ const EthereumBalanceChecker = () => {
             <Grid item>
               <Typography
                 color="textPrimary"
-                variant="h5"
+                variant="h1"
               >
                 Ethereum Wallet Balance Checker - Find the Ether and ERC-20 Token Balance of any Ethereum Address
+              </Typography>
+              <Typography
+                color="textPrimary"
+                variant="h6"
+                sx={{
+                  marginTop: '20px'
+                }}
+              >
+                Your most recently searched for address will be stored in your browser and pasted automatically on a revisit to this site
               </Typography>
             </Grid>
             <Grid
