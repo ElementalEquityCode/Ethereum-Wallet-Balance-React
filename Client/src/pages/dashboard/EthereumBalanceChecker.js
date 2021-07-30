@@ -87,7 +87,8 @@ const EthereumBalanceChecker = () => {
         sx={{
           backgroundColor: 'background.default',
           minHeight: '100%',
-          py: 8
+          py: 8,
+          paddingBottom: '5px !important'
         }}
       >
         <Container maxWidth={settings.compact ? 'xl' : false}>
@@ -201,6 +202,19 @@ const EthereumBalanceChecker = () => {
           </Box>
         </Container>
       </Box>
+      <footer>
+        <Typography
+          color="textPrimary"
+          variant="h6"
+          sx={{
+            marginTop: '20px',
+            textAlign: 'center',
+            padding: '10px'
+          }}
+        >
+          Free iOS App Coming Soon
+        </Typography>
+      </footer>
     </>
   );
 };
