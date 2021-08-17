@@ -45,7 +45,7 @@ const EthereumBalanceChecker = () => {
         });
 
         assets.forEach((coin) => {
-          coinsList.push(new Coin(coin.label, coin.price, coin.balance, coin.balanceUSD, `https://zapper.fi/images/${coin.img}`, (coin.balanceUSD / walletValueMeta) * 100, null));
+          coinsList.push(new Coin(coin.label, coin.price, coin.balance, coin.balanceUSD, coin.img, (coin.balanceUSD / walletValueMeta) * 100, null));
         });
 
         setShouldDisplayModalHandler(false);
