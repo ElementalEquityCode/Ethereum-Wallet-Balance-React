@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { Box, Container, Grid, Typography } from '@material-ui/core';
+import { Box, Container, Grid, Typography, Link } from '@material-ui/core';
 import AddressOverview from '../../components/dashboard/finance/FinanceOverview';
 import TokensTable from '../../components/dashboard/finance/FinanceProfitableProducts';
 import Form from '../../components/widgets/forms/Form2';
@@ -8,10 +8,8 @@ import { useState, useEffect } from 'react';
 import { zapperAPI } from '../../Objects/Axios';
 import Modal9 from '../../components/widgets/modals/Modal9';
 import Coin from '../../Objects/Coin';
-import { useCookies } from 'react-cookie';
 
 const EthereumBalanceChecker = () => {
-  const [cookie, setCookieHandler] = useCookies(['address']);
   const [enteredAddress, setAddressHandler] = useState('');
   const [enteredString, setEnteredStringHandler] = useState('');
   const [etherBalance, setEtherBalanceHandler] = useState(0);
@@ -54,10 +52,7 @@ const EthereumBalanceChecker = () => {
         setTotalETH20TokensHandler(response.data[addressString.toLowerCase()].products[0].assets.length);
         setWalletValueHandler(walletValueMeta);
         setCoinsHandler(coinsList);
-        setCookieHandler('address', addressString.toLowerCase(), {
-          path: '/',
-          maxAge: 31556926
-        });
+        localStorage.setItem('address', addressString.toLowerCase());
       }
     }).catch((error) => {
       console.log(error);
@@ -72,9 +67,9 @@ const EthereumBalanceChecker = () => {
   const { settings } = useSettings();
 
   useEffect(() => {
-    if (cookie.address) {
-      performAPIRequest(cookie.address);
-      setEnteredStringHandler(cookie.address);
+    if (localStorage.getItem('address')) {
+      performAPIRequest(localStorage.getItem('address'));
+      setEnteredStringHandler(localStorage.getItem('address'));
     }
   }, []);
 
@@ -170,7 +165,7 @@ const EthereumBalanceChecker = () => {
                 onKeyUpHandler={(event) => {
                   setEnteredStringHandler(event.target.value.trim());
                 }}
-                cookieAddress={cookie.address}
+                cookieAddress={localStorage.getItem('address')}
               />
             </Grid>
           </Grid>
@@ -203,17 +198,13 @@ const EthereumBalanceChecker = () => {
         </Container>
       </Box>
       <footer>
-        <Typography
-          color="textPrimary"
-          variant="h6"
-          sx={{
-            marginTop: '20px',
-            textAlign: 'center',
-            padding: '10px'
-          }}
-        >
-          Free iOS App Coming Soon
-        </Typography>
+        <center>
+          <Link
+            href="https://github.com/ElementalEquityCode/Ethereum-Wallet-Balance"
+          >
+            Source Code
+          </Link>
+        </center>
       </footer>
     </>
   );
