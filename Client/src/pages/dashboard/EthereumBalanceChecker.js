@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { Box, Container, Grid, Typography, Link } from '@material-ui/core';
+import { Box, Container, Grid, Typography, Link, Button } from '@material-ui/core';
 import AddressOverview from '../../components/dashboard/finance/FinanceOverview';
 import TokensTable from '../../components/dashboard/finance/FinanceProfitableProducts';
 import Form from '../../components/widgets/forms/Form2';
@@ -8,6 +8,8 @@ import { useState, useEffect } from 'react';
 import { zapperAPI } from '../../Objects/Axios';
 import Modal9 from '../../components/widgets/modals/Modal9';
 import Coin from '../../Objects/Coin';
+import UAuth from '@uauth/js';
+import styles from '../../components/widgets/forms/Form2.module.css';
 
 const EthereumBalanceChecker = () => {
   const [enteredAddress, setAddressHandler] = useState('');
@@ -20,6 +22,13 @@ const EthereumBalanceChecker = () => {
     shouldDisplay: false,
     title: '',
     message: ''
+  });
+  const [profile, setProfile] = useState(null);
+
+  const uauth = new UAuth({
+    clientID: 'RkNNnKGVPkAm/nv1XTnF2J52oggkYTA0q8vExwqKHXk=',
+    clientSecret: 'RY0LBZqchWRW8dOMgtmvN9mjNI+KXtGX08L6B5nVr/4=',
+    redirectUri: 'http://localhost:3000/callback',
   });
 
   const performAPIRequest = (addressString) => {
@@ -37,13 +46,13 @@ const EthereumBalanceChecker = () => {
         const walletValueMeta = response.data[addressString.toLowerCase()].meta[0].value;
 
         assets.forEach((coin) => {
-          if (coin.label === 'ETH') {
+          if (coin.symbol === 'ETH') {
             ethBalance = coin.balance;
           }
         });
 
         assets.forEach((coin) => {
-          coinsList.push(new Coin(coin.label, coin.price, coin.balance, coin.balanceUSD, coin.img, (coin.balanceUSD / walletValueMeta) * 100, null));
+          coinsList.push(new Coin(coin.symbol, coin.price, coin.balance, coin.balanceUSD, coin.img, (coin.balanceUSD / walletValueMeta) * 100, null));
         });
 
         setShouldDisplayModalHandler(false);
@@ -66,12 +75,54 @@ const EthereumBalanceChecker = () => {
 
   const { settings } = useSettings();
 
+  const fetchUser = () => {
+    uauth
+      .user()
+      .then((data) => {
+        if (data) {
+          setProfile(data);
+        } else {
+          setProfile(false);
+        }
+      })
+      .catch((_err) => {
+        console.log(_err);
+      });
+  };
+
+  const login = async () => {
+    try {
+      await uauth.loginWithPopup();
+      fetchUser();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const logout = async () => {
+    try {
+      await uauth.logout();
+      setProfile(null);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const checkMyBalance = () => {
+    localStorage.setItem('address', null);
+    console.log(profile);
+    performAPIRequest(profile.wallet_address);
+  };
+
   useEffect(() => {
+    fetchUser();
     if (localStorage.getItem('address')) {
       performAPIRequest(localStorage.getItem('address'));
       setEnteredStringHandler(localStorage.getItem('address'));
     }
   }, []);
+
+  const text = ' ';
 
   return (
     <>
@@ -110,7 +161,14 @@ const EthereumBalanceChecker = () => {
                 color="textPrimary"
                 variant="h1"
               >
-                Ethereum Wallet Balance Checker - Find the Ether and ERC-20 Token Balance of any Ethereum Address
+                Ethereum Wallet Balance Checker
+              </Typography>
+              <br />
+              <Typography
+                color="textPrimary"
+                variant="h3"
+              >
+                Find the Ether and ERC-20 Token Balance of any Ethereum Address
               </Typography>
               <Typography
                 color="textPrimary"
@@ -121,6 +179,28 @@ const EthereumBalanceChecker = () => {
               >
                 Your most recently searched for address will be stored in your browser and pasted automatically on a revisit to this site
               </Typography>
+              <br />
+              {profile ? (
+                <div>
+                  <Button
+                    onClick={logout}
+                    variant="contained"
+                    className={styles.button}
+                  >
+                    Disconnect
+                    {text + profile.sub}
+                  </Button>
+                  <br />
+                </div>
+              ) : (
+                <Button
+                  onClick={login}
+                  variant="contained"
+                  className={styles.button}
+                >
+                  Login With Unstoppable
+                </Button>
+              )}
             </Grid>
             <Grid
               style={{ width: '100%' }}
@@ -169,6 +249,18 @@ const EthereumBalanceChecker = () => {
               />
             </Grid>
           </Grid>
+          { profile ? (
+            <div>
+              <br />
+              <Button
+                onClick={checkMyBalance}
+                variant="contained"
+                className={styles.button}
+              >
+                Check my balance
+              </Button>
+            </div>
+          ) : null }
           <Box sx={{ mt: 3 }}>
             <Grid
               container
