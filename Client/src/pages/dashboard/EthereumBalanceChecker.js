@@ -11,6 +11,8 @@ import Coin from '../../Objects/Coin';
 import UAuth from '@uauth/js';
 import styles from '../../components/widgets/forms/Form2.module.css';
 
+require('dotenv').config();
+
 const EthereumBalanceChecker = () => {
   const [enteredAddress, setAddressHandler] = useState('');
   const [enteredString, setEnteredStringHandler] = useState('');
@@ -26,9 +28,9 @@ const EthereumBalanceChecker = () => {
   const [profile, setProfile] = useState(null);
 
   const uauth = new UAuth({
-    clientID: 'RkNNnKGVPkAm/nv1XTnF2J52oggkYTA0q8vExwqKHXk=',
-    clientSecret: 'RY0LBZqchWRW8dOMgtmvN9mjNI+KXtGX08L6B5nVr/4=',
-    redirectUri: 'http://localhost:3000/callback',
+    clientID: process.env.REACT_APP_UD_CLIENT_ID,
+    clientSecret: process.env.REACT_APP_UD_CLIENT_SECRET,
+    redirectUri: process.env.REACT_APP_UD_REDIRECT_URI,
   });
 
   const performAPIRequest = (addressString) => {
