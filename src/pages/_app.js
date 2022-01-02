@@ -3,7 +3,11 @@ import { CacheProvider } from "@emotion/react";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { SettingsButton } from "../components/settings-button";
-import { SettingsConsumer, SettingsProvider } from "../contexts/settings-context";
+import {
+  SettingsConsumer,
+  SettingsProvider,
+} from "../contexts/settings-context";
+import { TokensProvider } from "../contexts/tokens-context";
 import { createTheme } from "../theme";
 import { createEmotionCache } from "../utils/create-emotion-cache";
 
@@ -28,7 +32,9 @@ const App = (props) => {
             >
               <CssBaseline />
               <SettingsButton />
-              {getLayout(<Component {...pageProps}/>)}
+              <TokensProvider>
+                {getLayout(<Component {...pageProps} />)}
+              </TokensProvider>
             </ThemeProvider>
           )}
         </SettingsConsumer>

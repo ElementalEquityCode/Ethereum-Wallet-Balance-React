@@ -3,15 +3,10 @@ import NextLink from 'next/link';
 import Head from 'next/head';
 import { Box, Button, Container, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { gtm } from '../lib/gtm';
 
 const ServerError = () => {
   const theme = useTheme();
   const mobileDevice = useMediaQuery(theme.breakpoints.down('sm'));
-
-  useEffect(() => {
-    gtm.push({ event: 'page_view' });
-  }, []);
 
   return (
     <>

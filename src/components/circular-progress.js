@@ -1,29 +1,28 @@
-import PropTypes from 'prop-types';
-import { styled } from '@mui/material/styles';
+import PropTypes from "prop-types";
+import { styled } from "@mui/material/styles";
 
-const CircularProgressRoot = styled('div')({
+const CircularProgressRoot = styled("div")({
   height: 56,
-  width: 56
+  width: 56,
 });
 
-const CircularProgressBackground = styled('path')(({ theme }) => ({
-  fill: 'none',
-  stroke: theme.palette.mode === 'dark'
-    ? 'rgba(0,0,0,0.15)'
-    : 'rgba(0,0,0,0.05)',
-  strokeWidth: 4
+const CircularProgressBackground = styled("path")(({ theme }) => ({
+  fill: "none",
+  stroke:
+    theme.palette.mode === "dark" ? "rgba(0,0,0,0.15)" : "rgba(0,0,0,0.05)",
+  strokeWidth: 4,
 }));
 
-const CircularProgressValue = styled('path')(({ theme }) => ({
-  animation: '$progress 1s ease-out forwards',
-  fill: 'none',
+const CircularProgressValue = styled("path")(({ theme }) => ({
+  animation: "$progress 1s ease-out forwards",
+  fill: "none",
   stroke: theme.palette.primary.main,
   strokeWidth: 4,
-  '@keyframes progress': {
-    '0%': {
-      strokeDasharray: '0 100'
-    }
-  }
+  "@keyframes progress": {
+    "0%": {
+      strokeDasharray: "0 100",
+    },
+  },
 }));
 
 export const CircularProgress = (props) => {
@@ -46,5 +45,5 @@ export const CircularProgress = (props) => {
 };
 
 CircularProgress.propTypes = {
-  value: PropTypes.number.isRequired
+  value: PropTypes.number.isRequired,
 };
