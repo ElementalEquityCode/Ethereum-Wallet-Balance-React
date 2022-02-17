@@ -1,6 +1,7 @@
 var cron = require("node-cron");
 const process = require("process");
 const PORT = process.env.PORT || 8080;
+require("dotenv").config({ path: __dirname + "/.env" });
 
 const express = require("express");
 const app = express();
@@ -15,7 +16,8 @@ app.use("/", (req, res, next) => {
 
 app.use("/market-data/", marketData);
 
-cron.schedule("* * * * *", marketDataImporter);
+marketDataImporter();
+cron.schedule("*/2 * * * *", marketDataImporter);
 
 app.listen(PORT, () => {
   console.log("Started listening on port 8080");

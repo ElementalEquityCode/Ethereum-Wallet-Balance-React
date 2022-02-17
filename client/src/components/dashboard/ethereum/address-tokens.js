@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import numeral from "numeral";
 import {
   Box,
@@ -18,10 +17,10 @@ import { ArrowRight as ArrowRightIcon } from "../../../icons/arrow-right";
 import { Image as ImageIcon } from "../../../icons/image";
 import { CircularProgress } from "../../circular-progress";
 import { Scrollbar } from "../../scrollbar";
+import { TwentyFourHourChange } from "../twenty-four-hour-change";
 import { useTokens } from "../../../hooks/use-tokens";
 
 export const AddressTokens = (props) => {
-  const [didFetchMarketData, setFetchMarketData] = useState(false);
   const router = useRouter();
   const tokensContext = useTokens();
 
@@ -124,19 +123,7 @@ export const AddressTokens = (props) => {
                 </TableCell>
                 <TableCell>
                   <Typography color="textSecondary" noWrap variant="body2">
-                    <Chip
-                      label={`${numeral(token.twentyFourHourChange).format(
-                        "0,0.00"
-                      )}%`}
-                      color={
-                        token.twentyFourHourChange > 0
-                          ? "success"
-                          : token.twentyFourHourChange === 0 ||
-                            !token.twentyFourHourChange
-                          ? "primary"
-                          : "error"
-                      }
-                    />
+                    <TwentyFourHourChange erc20Token={token} />
                   </Typography>
                 </TableCell>
                 <TableCell>

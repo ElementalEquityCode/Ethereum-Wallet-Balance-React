@@ -22,14 +22,7 @@ export const TokensProvider = (props) => {
 
     if (fetchedAddresses) {
       fetchedAddresses.forEach(async (address) => {
-        const fetchedAddress = new Address(
-          address,
-          0,
-          0,
-          0,
-          null,
-          TokensContext
-        );
+        const fetchedAddress = new Address(address, 0, 0, 0, null);
         await fetchedAddress.fetchDataFromZapperAPI();
         addressesCopy.push(fetchedAddress);
         setEtherAddress(addressesCopy);

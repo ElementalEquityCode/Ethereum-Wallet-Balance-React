@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
+import { Box, Button, Container, Grid, Link, Typography } from "@mui/material";
 import { DashboardLayout } from "../components/dashboard/dashboard-layout";
 import { AddressOverview } from "../components/dashboard/ethereum/address-overview";
 import { AddressTokens } from "../components/dashboard/ethereum/address-tokens";
@@ -94,6 +94,21 @@ const EthereumWalletBalance = () => {
             </Grid>
             <Grid item xs={12}>
               <AddressTokens />
+              <Link
+                href="https://github.com/ElementalEquityCode/Ethereum-Wallet-Balance-React"
+                target="_blank"
+              >
+                <Typography
+                  variant="h5"
+                  sx={{
+                    wordBreak: "break-all",
+                    textAlign: "center",
+                    pt: 2.5,
+                  }}
+                >
+                  Source Code
+                </Typography>
+              </Link>
             </Grid>
           </Grid>
         </Container>

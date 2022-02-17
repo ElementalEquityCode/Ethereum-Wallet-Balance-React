@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.26.0",
+    "dotenv": "^16.0.0",
     "express": "^4.17.2",
     "mongodb": "^4.3.1",
     "node-cron": "^3.0.0"

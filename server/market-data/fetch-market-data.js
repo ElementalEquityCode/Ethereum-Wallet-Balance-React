@@ -1,8 +1,8 @@
 const axios = require("axios");
 const { MongoClient } = require("mongodb");
+const process = require("process");
 
-const uri =
-  "mongodb+srv://admin:admin@ethereum-wallet-balance.bahyr.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const uri = process.env["MONGODB_URI"];
 const client = new MongoClient(uri);
 
 let requestCount = 0;
