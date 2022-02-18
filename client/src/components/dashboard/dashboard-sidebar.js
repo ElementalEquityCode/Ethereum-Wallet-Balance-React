@@ -34,7 +34,7 @@ export const DashboardSidebar = (props) => {
   const tokensContext = useTokens();
   const router = useRouter();
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"), {
-    noSsr: true,
+    noSsr: false,
   });
   const sections = getSections(tokensContext.addresses);
   const organizationsRef = useRef(null);
