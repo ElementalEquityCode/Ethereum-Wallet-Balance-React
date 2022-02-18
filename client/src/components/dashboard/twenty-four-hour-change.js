@@ -14,19 +14,17 @@ export const TwentyFourHourChange = (props) => {
   }, [didFetchMarketData]);
 
   return (
-    <Typography color="textSecondary" noWrap variant="body2">
-      <Chip
-        label={`${numeral(erc20Token.twentyFourHourChange).format("0,0.00")}%`}
-        color={
-          erc20Token.twentyFourHourChange > 0
-            ? "success"
-            : erc20Token.twentyFourHourChange === 0 ||
-              !erc20Token.twentyFourHourChange
-            ? "primary"
-            : "error"
-        }
-      />
-    </Typography>
+    <Chip
+      label={`${numeral(erc20Token.twentyFourHourChange).format("0,0.00")}%`}
+      color={
+        erc20Token.twentyFourHourChange > 0
+          ? "success"
+          : erc20Token.twentyFourHourChange === 0 ||
+            !erc20Token.twentyFourHourChange
+          ? "primary"
+          : "error"
+      }
+    />
   );
 };
 

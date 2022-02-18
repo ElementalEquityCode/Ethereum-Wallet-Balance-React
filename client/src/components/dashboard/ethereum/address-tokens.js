@@ -123,9 +123,7 @@ export const AddressTokens = (props) => {
                   </Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography color="textSecondary" noWrap variant="body2">
-                    <TwentyFourHourChange erc20Token={token} />
-                  </Typography>
+                  <TwentyFourHourChange erc20Token={token} />
                 </TableCell>
                 <TableCell>
                   <Box
