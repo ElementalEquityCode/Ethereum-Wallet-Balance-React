@@ -17,10 +17,10 @@ export class ERC20Token {
     this.logo = logo;
     this.percentOfTotalPortfolio = percentOfTotalPortfolio;
     this.uuid = uuid;
-    this.twentyFourHourChange = "N/A";
+    this.twentyFourHourChange = null;
   }
 
-  fetch24HourChangeData = async (callback) => {
+  fetch24HourChangeData = (callback) => {
     axios
       .get(
         this.ticker.toLowerCase() === "eth"
@@ -34,7 +34,6 @@ export class ERC20Token {
         }
       })
       .catch((error) => {
-        this.twentyFourHourChange = "N/A";
         if (callback) {
           callback();
         }

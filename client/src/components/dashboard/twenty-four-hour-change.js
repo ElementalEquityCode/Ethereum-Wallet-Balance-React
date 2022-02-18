@@ -8,11 +8,9 @@ export const TwentyFourHourChange = (props) => {
   const { erc20Token } = props;
 
   useEffect(() => {
-    if (erc20Token.twentyFourHourChange) {
-      erc20Token.fetch24HourChangeData(() => {
-        setFetchMarketData(true);
-      });
-    }
+    erc20Token.fetch24HourChangeData(() => {
+      setFetchMarketData(true);
+    });
   }, [didFetchMarketData]);
 
   return (

@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import NextLink from "next/link";
 import Head from "next/head";
 import {
@@ -9,15 +8,10 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { gtm } from "../lib/gtm";
 
 const AuthorizationRequired = () => {
   const theme = useTheme();
   const mobileDevice = useMediaQuery(theme.breakpoints.down("sm"));
-
-  useEffect(() => {
-    gtm.push({ event: "page_view" });
-  }, []);
 
   return (
     <>

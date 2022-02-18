@@ -1,10 +1,8 @@
 import numeral from "numeral";
 import {
   Box,
-  Button,
   Card,
   CardHeader,
-  Chip,
   Table,
   TableBody,
   TableCell,
@@ -53,7 +51,10 @@ export const AddressTokens = (props) => {
           </TableHead>
           <TableBody>
             {currentlyViewedAddress?.erc20Tokens.map((token) => (
-              <TableRow hover key={token.uuid}>
+              <TableRow
+                hover
+                key={`${token.uuid}${currentlyViewedAddress?.address}`}
+              >
                 <TableCell>
                   <Box
                     sx={{
@@ -118,7 +119,7 @@ export const AddressTokens = (props) => {
                 </TableCell>
                 <TableCell>
                   <Typography color="textSecondary" noWrap variant="body2">
-                    {numeral(token.price).format("$0,0.00")}
+                    {numeral(token.usdBalance).format("$0,0.00")}
                   </Typography>
                 </TableCell>
                 <TableCell>

@@ -1,14 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
-import {
-  Box,
-  Button,
-  Divider,
-  Drawer,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
+import { Box, Button, Divider, Drawer, useMediaQuery } from "@mui/material";
 import { Cash as CashIcon } from "../../icons/cash";
 import { Scrollbar } from "../scrollbar";
 import { DashboardSidebarSection } from "./dashboard-sidebar-section";

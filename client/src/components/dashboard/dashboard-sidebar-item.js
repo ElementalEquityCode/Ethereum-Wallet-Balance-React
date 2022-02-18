@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import NextLink from "next/link";
 import PropTypes from "prop-types";
-import { Box, Button, Collapse, ListItem } from "@mui/material";
-import { ChevronDown as ChevronDownIcon } from "../../icons/chevron-down";
-import { ChevronRight as ChevronRightIcon } from "../../icons/chevron-right";
+import { Box, Button, ListItem } from "@mui/material";
 
 export const DashboardSidebarItem = (props) => {
   const router = useRouter();

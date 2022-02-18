@@ -1,13 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  Box,
-  Button,
-  Checkbox,
-  Drawer,
-  FormControlLabel,
-  IconButton,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Drawer, IconButton, Typography } from "@mui/material";
 import { useSettings } from "../hooks/use-settings";
 import { X as XIcon } from "../icons/x";
 import LightThemeIcon from "../components/light-theme.svg";
