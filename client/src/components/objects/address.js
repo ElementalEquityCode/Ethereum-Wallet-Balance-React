@@ -13,17 +13,17 @@ export class Address {
     }
   }
 
-  fetchDataFromZapperAPI = async () => {
-    await axios
+  fetchDataFromZapperAPI = (callback) => {
+    axios
       .get(
         `https://api.zapper.fi/v1/protocols/tokens/balances?addresses[]=${this.address.toLowerCase()}&api_key=96e0cc51-a62e-42ca-acee-910ea7d2a241`
       )
       .then((result) => {
         this.addressValue = result.data[address.toLowerCase()].meta[1].value;
 
-        result.data[address.toLowerCase()].products[0].assets.forEach( async
+        result.data[address.toLowerCase()].products[0].assets.forEach(
           (asset) => {
-            const token = await new ERC20Token(
+            const token = new ERC20Token(
               asset.symbol,
               asset.price,
               asset.balance,
@@ -38,6 +38,7 @@ export class Address {
             }
           }
         );
+        callback();
       })
       .catch((error) => {
         console.log(error);

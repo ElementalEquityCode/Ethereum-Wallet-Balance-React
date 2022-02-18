@@ -20,12 +20,15 @@ export class ERC20Token {
     this.twentyFourHourChange = null;
   }
 
-  fetch24HourChangeData = (callback) => {
+  fetch24HourChangeData = (callback, token) => {
     axios
       .get(
         this.ticker.toLowerCase() === "eth"
           ? `http://localhost:8080/market-data/ethereum`
-          : `http://localhost:8080/market-data/${this.uuid}`
+          : `http://localhost:8080/market-data/${this.uuid}`,
+        {
+          cancelToken: token.token,
+        }
       )
       .then((response) => {
         this.twentyFourHourChange = response.data;

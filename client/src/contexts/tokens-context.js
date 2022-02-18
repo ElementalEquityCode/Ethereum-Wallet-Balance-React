@@ -21,18 +21,19 @@ export const TokensProvider = (props) => {
     const fetchedAddresses = JSON.parse(localStorage.getItem("addresses"));
 
     if (fetchedAddresses) {
-      fetchedAddresses.forEach(async (address) => {
+      fetchedAddresses.forEach((address) => {
         const fetchedAddress = new Address(address, 0, 0, 0, null);
-        await fetchedAddress.fetchDataFromZapperAPI();
-        addressesCopy.push(fetchedAddress);
-        setEtherAddress(addressesCopy);
-        completionBlock(addressesCopy);
+        fetchedAddress.fetchDataFromZapperAPI(() => {
+          addressesCopy.push(fetchedAddress);
+          setEtherAddress(addressesCopy);
+          completionBlock(addressesCopy);
+        });
       });
     }
   };
 
-  const addEthereumAddress = async (address, completion) => {
-    await axios
+  const addEthereumAddress = (address, completion) => {
+    axios
       .get(
         `https://api.zapper.fi/v1/protocols/tokens/balances?addresses[]=${address}&api_key=96e0cc51-a62e-42ca-acee-910ea7d2a241`
       )
