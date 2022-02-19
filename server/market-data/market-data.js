@@ -8,54 +8,37 @@ const uri = process.env["MONGODB_URI"];
 const client = new MongoClient(uri);
 
 router.get("/ethereum", async (req, res) => {
-  try {
-    await client.connect();
-
-    client
-      .db("dailyChangeData")
-      .collection("dailyChangeData")
-      .findOne({
-        _id: "ethereum",
-      })
-      .then(async (result) => {
-        res.status(200).send(String(result.change));
-        await client.close();
-      })
-      .catch(async (error) => {
-        console.log(error);
-        await client.close();
-      });
-  } catch (error) {
-    console.log(error);
-    res.status(200).send("0");
-  }
+  client
+    .db("dailyChangeData")
+    .collection("dailyChangeData")
+    .findOne({
+      _id: "ethereum",
+    })
+    .then(async (result) => {
+      res.status(200).send(String(result.change));
+    })
+    .catch(async (error) => {
+      console.log(error);
+    });
 });
 
 router.get("/:coin", async (req, res) => {
-  try {
-    await client.connect();
-
-    client
-      .db("dailyChangeData")
-      .collection("dailyChangeData")
-      .findOne({
-        _id: req.params.coin,
-      })
-      .then(async (result) => {
-        if (result) {
-          res.status(200).send(String(result.change));
-        } else {
-          res.status(200).send("0");
-        }
-      })
-      .catch(async (error) => {
-        console.log(error);
-        await client.close();
-      });
-  } catch (error) {
-    console.log(error);
-    res.status(200).send("0");
-  }
+  client
+    .db("dailyChangeData")
+    .collection("dailyChangeData")
+    .findOne({
+      _id: req.params.coin,
+    })
+    .then(async (result) => {
+      if (result) {
+        res.status(200).send(String(result.change));
+      } else {
+        res.status(200).send("0");
+      }
+    })
+    .catch(async (error) => {
+      console.log(error);
+    });
 });
 
 module.exports = router;

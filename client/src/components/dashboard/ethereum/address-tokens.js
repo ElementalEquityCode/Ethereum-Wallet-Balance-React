@@ -72,7 +72,6 @@ export const AddressTokens = (props) => {
                         sx={{
                           alignItems: "center",
                           backgroundColor: "background.default",
-                          backgroundImage: `url(${token.image})`,
                           backgroundPosition: "center",
                           backgroundSize: "cover",
                           borderRadius: 1,

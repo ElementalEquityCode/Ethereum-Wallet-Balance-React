@@ -123,13 +123,15 @@ export const TokensProvider = (props) => {
   };
 
   useEffect(() => {
-    loadStoredAddresses((addressesCopy) => {
-      if (addressesCopy) {
-        router.push(`/?address=${addressesCopy[0].address}`, undefined, {
-          shallow: true,
-        });
-      }
-    });
+    if (router.pathname === "/") {
+      loadStoredAddresses((addressesCopy) => {
+        if (addressesCopy) {
+          router.push(`/?address=${addressesCopy[0].address}`, undefined, {
+            shallow: true,
+          });
+        }
+      });
+    }
   }, []);
 
   const { children } = props;

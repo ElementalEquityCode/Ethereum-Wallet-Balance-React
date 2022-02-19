@@ -5,9 +5,6 @@ const process = require("process");
 const uri = process.env["MONGODB_URI"];
 const client = new MongoClient(uri);
 
-let requestCount = 0;
-let queryCompletionCount = 0;
-
 const fetchMarketDataFromCoinGecko = async () => {
   console.log("Fetching market data");
 
@@ -51,29 +48,11 @@ const fetchMarketDataFromCoinGecko = async () => {
       "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd&include_24hr_change=true"
     );
 
-    requestCount++;
-
     if (ethereumPriceResponse.data["ethereum"]) {
-      client
-        .db("dailyChangeData")
-        .collection("dailyChangeData")
-        .insertOne({
-          _id: "ethereum",
-          change: ethereumPriceResponse.data["ethereum"].usd_24h_change,
-        })
-        .then(async () => {
-          queryCompletionCount++;
-
-          if (queryCompletionCount === requestCount) {
-            console.log("Closing client");
-            queryCompletionCount = 0;
-            requestCount = 0;
-            await client.close();
-          }
-        })
-        .catch(() => {
-          queryCompletionCount++;
-        });
+      client.db("dailyChangeData").collection("dailyChangeData").insertOne({
+        _id: "ethereum",
+        change: ethereumPriceResponse.data["ethereum"].usd_24h_change,
+      });
     }
   } catch (error) {
     console.log(error);
@@ -81,8 +60,6 @@ const fetchMarketDataFromCoinGecko = async () => {
 };
 
 const fetchDailyPriceChange = (query) => {
-  requestCount++;
-
   axios
     .get(
       `https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=${query}&vs_currencies=usd&include_24hr_change=true`
@@ -101,20 +78,7 @@ const fetchDailyPriceChange = (query) => {
       client
         .db("dailyChangeData")
         .collection("dailyChangeData")
-        .insertMany(uploadData)
-        .then(async () => {
-          queryCompletionCount++;
-
-          if (queryCompletionCount === requestCount) {
-            console.log("Closing client");
-            queryCompletionCount = 0;
-            requestCount = 0;
-            await client.close();
-          }
-        })
-        .catch(() => {
-          queryCompletionCount++;
-        });
+        .insertMany(uploadData);
     })
     .catch((error) => {
       console.log(error);
