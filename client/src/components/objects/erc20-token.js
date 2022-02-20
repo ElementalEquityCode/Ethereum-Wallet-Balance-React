@@ -24,8 +24,8 @@ export class ERC20Token {
     axios
       .get(
         this.ticker.toLowerCase() === "eth"
-          ? `http://localhost:8080/market-data/ethereum`
-          : `http://localhost:8080/market-data/${this.uuid}`,
+          ? `https://api.ethereumwalletbalance.com/market-data/ethereum`
+          : `https://api.ethereumwalletbalance.com/market-data/${this.uuid}`,
         {
           cancelToken: token.token,
         }

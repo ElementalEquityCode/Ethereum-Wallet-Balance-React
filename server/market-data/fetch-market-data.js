@@ -5,57 +5,65 @@ const process = require("process");
 const uri = process.env["MONGODB_URI"];
 const client = new MongoClient(uri);
 
-const fetchMarketDataFromCoinGecko = async () => {
-  console.log("Fetching market data");
-
+const connectClient = async (callback) => {
   try {
     await client.connect();
 
-    await client
-      .db("dailyChangeData")
-      .collection("dailyChangeData")
-      .deleteMany({});
-
-    const response = await axios.get(
-      "https://api.coingecko.com/api/v3/coins/list?include_platform=true"
-    );
-
-    let count = 0;
-    let query = "";
-
-    response.data.forEach((coin, index) => {
-      if (coin.platforms) {
-        if (coin.platforms.ethereum) {
-          if (query === "") {
-            query += coin.platforms.ethereum;
-          } else {
-            query += `%2C${coin.platforms.ethereum}`;
-          }
-          if (count % 150 === 0) {
-            fetchDailyPriceChange(query);
-            query = "";
-          }
-          count++;
-        }
-      }
-    });
-
-    if (query !== "") {
-      fetchDailyPriceChange(query);
-    }
-
-    const ethereumPriceResponse = await axios.get(
-      "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd&include_24hr_change=true"
-    );
-
-    if (ethereumPriceResponse.data["ethereum"]) {
-      client.db("dailyChangeData").collection("dailyChangeData").insertOne({
-        _id: "ethereum",
-        change: ethereumPriceResponse.data["ethereum"].usd_24h_change,
-      });
+    if (callback) {
+      callback();
     }
   } catch (error) {
     console.log(error);
+  }
+};
+
+connectClient();
+
+const fetchMarketDataFromCoinGecko = async () => {
+  console.log("Fetching market data");
+
+  await client
+    .db("dailyChangeData")
+    .collection("dailyChangeData")
+    .deleteMany({});
+
+  const response = await axios.get(
+    "https://api.coingecko.com/api/v3/coins/list?include_platform=true"
+  );
+
+  let count = 0;
+  let query = "";
+
+  response.data.forEach((coin, index) => {
+    if (coin.platforms) {
+      if (coin.platforms.ethereum) {
+        if (query === "") {
+          query += coin.platforms.ethereum;
+        } else {
+          query += `%2C${coin.platforms.ethereum}`;
+        }
+        if (count % 150 === 0) {
+          fetchDailyPriceChange(query);
+          query = "";
+        }
+        count++;
+      }
+    }
+  });
+
+  if (query !== "") {
+    fetchDailyPriceChange(query);
+  }
+
+  const ethereumPriceResponse = await axios.get(
+    "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd&include_24hr_change=true"
+  );
+
+  if (ethereumPriceResponse.data["ethereum"]) {
+    client.db("dailyChangeData").collection("dailyChangeData").insertOne({
+      _id: "ethereum",
+      change: ethereumPriceResponse.data["ethereum"].usd_24h_change,
+    });
   }
 };
 
@@ -85,4 +93,5 @@ const fetchDailyPriceChange = (query) => {
     });
 };
 
-module.exports = fetchMarketDataFromCoinGecko;
+exports.fetchMarketDataFromCoinGecko = fetchMarketDataFromCoinGecko;
+exports.connectClient = connectClient;

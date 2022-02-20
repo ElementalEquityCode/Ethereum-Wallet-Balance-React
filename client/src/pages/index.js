@@ -88,11 +88,14 @@ const EthereumWalletBalance = () => {
               </Grid>
             </Grid>
           </Box>
-          <Grid container spacing={4}>
-            <Grid item xs={12}>
+          <Grid container
+spacing={4}>
+            <Grid item
+xs={12}>
               <AddressOverview />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item
+xs={12}>
               <AddressTokens />
               <Link
                 href="https://github.com/ElementalEquityCode/Ethereum-Wallet-Balance-React"

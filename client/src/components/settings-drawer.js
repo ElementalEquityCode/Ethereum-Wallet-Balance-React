@@ -66,10 +66,12 @@ export const SettingsDrawer = (props) => {
           py: 2,
         }}
       >
-        <Typography color="inherit" variant="h6">
+        <Typography color="inherit"
+variant="h6">
           Theme settings
         </Typography>
-        <IconButton color="inherit" onClick={onClose}>
+        <IconButton color="inherit"
+onClick={onClose}>
           <XIcon fontSize="small" />
         </IconButton>
       </Box>
@@ -123,7 +125,9 @@ export const SettingsDrawer = (props) => {
                 >
                   <Icon />
                 </Box>
-                <Typography align="center" sx={{ mt: 1 }} variant="subtitle2">
+                <Typography align="center"
+sx={{ mt: 1 }}
+variant="subtitle2">
                   {label}
                 </Typography>
               </div>

@@ -46,7 +46,7 @@
     "@reduxjs/toolkit": "^1.5.0",
     "apexcharts": "^3.23.1",
     "aws-amplify": "^3.0.20",
-    "axios": "^0.24.0",
+    "axios": "^0.26.0",
     "date-fns": "^2.21.3",
     "draft-js": "^0.11.7",
     "firebase": "^8.2.3",

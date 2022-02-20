@@ -16,6 +16,8 @@ out
 # misc
 .DS_Store
 .eslintcache
+.env
+*/.env
 /.env
 /.env.local
 /.env.development.local

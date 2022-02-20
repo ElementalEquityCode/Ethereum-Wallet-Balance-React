@@ -1,0 +1,14 @@
+{
+  "name": "ethereum-wallet-balance",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-next-js": "cd client && npm install && next start",
+    "start-node-js": "cd server && npm install && npm start",
+    "start": "npm run start-node-js"
+  },
+  "author": "",
+  "license": "ISC"
+}

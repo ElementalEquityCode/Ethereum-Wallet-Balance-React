@@ -7,6 +7,14 @@ const process = require("process");
 const uri = process.env["MONGODB_URI"];
 const client = new MongoClient(uri);
 
+const connectClient = async () => {
+  try {
+    await client.connect();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 router.get("/ethereum", async (req, res) => {
   client
     .db("dailyChangeData")
@@ -40,5 +48,7 @@ router.get("/:coin", async (req, res) => {
       console.log(error);
     });
 });
+
+connectClient();
 
 module.exports = router;

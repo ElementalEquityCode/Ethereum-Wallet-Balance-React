@@ -85,7 +85,18 @@ export const AddAddressModal = (props) => {
           }
         }}
       >
-        <Paper sx={{ width: "50%" }} elevation={12}>
+        <Paper
+          sx={{
+            width: {
+              xs: "100%",
+              s: "100%",
+              md: "100%",
+              lg: "50%",
+              xl: "50%",
+            },
+          }}
+          elevation={12}
+        >
           <Box sx={{ p: 3 }}>
             <Box
               sx={{

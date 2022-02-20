@@ -29,7 +29,8 @@ const NotFound = () => {
         }}
       >
         <Container maxWidth="lg">
-          <Typography align="center" variant={mobileDevice ? "h4" : "h1"}>
+          <Typography align="center"
+variant={mobileDevice ? "h4" : "h1"}>
             404: The page you are looking for isn’t here
           </Typography>
           <Typography
@@ -66,8 +67,10 @@ const NotFound = () => {
               mt: 6,
             }}
           >
-            <NextLink href="/dashboard" passHref>
-              <Button component="a" variant="outlined">
+            <NextLink href="/dashboard"
+passHref>
+              <Button component="a"
+variant="outlined">
                 Back to Dashboard
               </Button>
             </NextLink>

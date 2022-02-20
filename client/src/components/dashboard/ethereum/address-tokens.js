@@ -82,7 +82,8 @@ export const AddressTokens = (props) => {
                           width: 80,
                         }}
                       >
-                        <img src={token.logo} height="30" />
+                        <img src={token.logo}
+height="30" />
                       </Box>
                     ) : (
                       <Box
@@ -102,22 +103,30 @@ export const AddressTokens = (props) => {
                   </Box>
                 </TableCell>
                 <TableCell>
-                  <Typography color="textSecondary" noWrap variant="body2">
+                  <Typography color="textSecondary"
+noWrap
+variant="body2">
                     {token.ticker}
                   </Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography color="textSecondary" noWrap variant="body2">
+                  <Typography color="textSecondary"
+noWrap
+variant="body2">
                     {numeral(token.coinBalance).format("0,0.00")}
                   </Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography color="textSecondary" noWrap variant="body2">
+                  <Typography color="textSecondary"
+noWrap
+variant="body2">
                     {numeral(token.price).format("$0,0.00")}
                   </Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography color="textSecondary" noWrap variant="body2">
+                  <Typography color="textSecondary"
+noWrap
+variant="body2">
                     {numeral(token.usdBalance).format("$0,0.00")}
                   </Typography>
                 </TableCell>
@@ -133,7 +142,8 @@ export const AddressTokens = (props) => {
                     }}
                   >
                     <Box sx={{ mr: 2 }}>
-                      <Typography align="right" variant="subtitle2">
+                      <Typography align="right"
+variant="subtitle2">
                         {(token.percentOfTotalPortfolio * 100).toFixed(2)}%
                       </Typography>
                     </Box>

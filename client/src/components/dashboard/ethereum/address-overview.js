@@ -56,7 +56,9 @@ const ChartLine = () => {
 
   const chartSeries = [{ data: [256, 282, 221, 245, 235, 274, 234, 256] }];
 
-  return <Chart options={chartOptions} series={chartSeries} type="area" />;
+  return <Chart options={chartOptions}
+series={chartSeries}
+type="area" />;
 };
 
 const data = {
@@ -110,10 +112,12 @@ export const AddressOverview = (props) => {
           }}
         >
           <div>
-            <Typography color="textSecondary" variant="overline">
+            <Typography color="textSecondary"
+variant="overline">
               Address Value
             </Typography>
-            <Typography variant="h5" sx={{ wordBreak: "break-all" }}>
+            <Typography variant="h5"
+sx={{ wordBreak: "break-all" }}>
               {currentlyViewedAddress
                 ? numeral(currentlyViewedAddress?.addressValue).format(
                     "$0,0.00"
@@ -151,10 +155,12 @@ export const AddressOverview = (props) => {
           }}
         >
           <div>
-            <Typography color="textSecondary" variant="overline">
+            <Typography color="textSecondary"
+variant="overline">
               Ether Balance
             </Typography>
-            <Typography variant="h5" sx={{ wordBreak: "break-all" }}>
+            <Typography variant="h5"
+sx={{ wordBreak: "break-all" }}>
               {currentlyViewedAddress
                 ? numeral(currentlyViewedAddress.etherBalance).format("0,0.00")
                 : Number(0).toFixed(2)}
@@ -183,10 +189,12 @@ export const AddressOverview = (props) => {
           }}
         >
           <div>
-            <Typography color="textSecondary" variant="overline">
+            <Typography color="textSecondary"
+variant="overline">
               ERC-20 Tokens
             </Typography>
-            <Typography variant="h5" sx={{ wordBreak: "break-all" }}>
+            <Typography variant="h5"
+sx={{ wordBreak: "break-all" }}>
               {currentlyViewedAddress
                 ? currentlyViewedAddress.erc20Tokens.length
                 : 0}
